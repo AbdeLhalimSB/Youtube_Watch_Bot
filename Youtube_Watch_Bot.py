@@ -13,6 +13,7 @@ import random
 import string
 import os
 
+# Random browser language
 def get_random_language():
     # List of common language codes
     languages = ['en-US', 'fr-FR', 'de-DE', 'zh-CN', 'ja-JP', 'es-ES', 'ru-RU']
@@ -20,6 +21,7 @@ def get_random_language():
     random_language = random.choice(languages)
     return random_language
 
+# Random browser timezone
 def get_random_timezone():
     # Get a list of all timezones in pytz
     timezones = ['US/Pacific', 'US/Mountain', 'US/Central', 'US/Eastern', 'Canada/Pacific', 'Canada/Mountain', 'Canada/Central', 'Canada/Eastern']
@@ -28,11 +30,13 @@ def get_random_timezone():
     random_timezone = random.choice(timezones)
     return random_timezone
 
+# Random browser window size
 def get_random_window_size():
     width = random.randint(1024, 1920)
     height = random.randint(768, 1080)
     return f"{width}x{height}"
 
+# Random name for chrome profile
 def random_name():
     # list of possible names
     names = ["John", "Emily", "Jessica", "Jacob", "Michael", "Madison", "Matthew", "Nicholas", "Andrew", "Emily", "Kars", "Wamuu", "Seras", "Issac", "Netero", "Baki", "Jack", "Yujiro", "Straidam", "Merum", "Endeavor", "Trefort", "Pitoo", "Susano", "Rengoku", "Enji", "Toya"]
@@ -46,6 +50,7 @@ def random_name():
     # return the generated name
     return name + "_" + last_name +''+ suffix
 
+# Random user agent for browser
 def get_random_user_agent():
     systems = ['Windows', 'Macintosh', 'X11']
     browsers = ['Chrome', 'Firefox', 'Safari']
@@ -76,6 +81,7 @@ def Youtube_Watcher(Link):
     chrome_options.add_argument('--force-timezone=' + timezone)
     chrome_options.add_argument("--disable-plugins")
     chrome_options.add_argument("--disable-extensions-file-access-check")
+    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
     Name = random_name()
     profile_path = "Profiles/"+Name
     chrome_options.add_argument("user-data-dir="+os.path.abspath(profile_path))
@@ -102,8 +108,9 @@ if __name__ =="__main__":
     file.close()
     Temp = Config[0].split(':')
     Threads = Temp[1]
-    Temp = Config[1].split(':')
-    Link = Temp[1]
+    Temp = Config[1]
+    Link = Temp.replace('Link:','')
+    print(Link)
     N = int(Threads)
       # Number of browsers to spawn
     thread_list = list()
