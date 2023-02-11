@@ -5,7 +5,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-import undetected_chromedriver.v2 as uc
 from selenium.webdriver.common.proxy import Proxy, ProxyType
 from selenium.webdriver.common.alert import Alert
 import time
@@ -81,8 +80,22 @@ def Youtube_Watcher(Link):
     profile_path = "Profiles/"+Name
     chrome_options.add_argument("user-data-dir="+os.path.abspath(profile_path))
     driver = selenium.webdriver.Chrome(chrome_options=chrome_options)  
-    driver.get('https://www.google.com/')
-    time.sleep(2000)
+    driver.get('chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/popup/index.html#/announcement')
+    driver.implicitly_wait(time_to_wait=10)
+    time.sleep(6)
+    driver.switch_to.window(driver.window_handles[1])
+    driver.close()
+    driver.switch_to.window(driver.window_handles[0])
+    driver.find_element('xpath','/html/body/div/div/div[2]/div/div/div[2]/button[2]').click()
+    driver.implicitly_wait(time_to_wait=10)
+    time.sleep(0.5)
+    driver.find_element('xpath','/html/body/div/div/div[3]/div[4]/div/div').click()
+    while driver.find_element('class name','timer').text=='00 : 00 : 00':
+        time.sleep(0.2)
+    # driver.get('chrome-extension://extension_eppiocemhmnlbhjplcgkofciiegomcon/index.html')
+    driver.get(Link)
+    while True:
+        time.sleep(2000)
 if __name__ =="__main__":
     file = open('Config.txt','r')
     Config = file.readlines()
