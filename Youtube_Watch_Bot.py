@@ -65,44 +65,68 @@ def get_random_user_agent():
     browser_version = browser + '/' + str(random.randint(50, 70)) + '.' + str(random.randint(0, 9)) + '.' + str(random.randint(1000, 10000))
     return "Mozilla/5.0 (" + os_version + "; rv:" + str(random.randint(50, 70)) + "." + str(random.randint(0, 9)) + ") Gecko/20100101 " + browser_version
 
+def cp():
+    # while True:
+        os.system('cls')
+        print("\033[91m"+'''
+                            (                                 (          
+   (         )   (          )\ )     )        (               )\ )   (   
+   )\     ( /(   )\ )   (  (()/(  ( /(     )  )\ (      )    (()/( ( )\  
+((((_)(   )\()) (()/(  ))\  /(_)) )\()) ( /( ((_))\    (      /(_)))((_) 
+ )\ _ )\ ((_)\   ((_))/((_)(_))  ((_)\  )(_)) _ ((_)   )\  ' (_)) ((_)_  
+ (_)_\(_)| |(_)  _| |(_))  | |   | |(_)((_)_ | | (_) _((_))  / __| | _ ) 
+  / _ \  | '_ \/ _` |/ -_) | |__ | ' \ / _` || | | || '  \() \__ \ | _ \ 
+ /_/ \_\ |_.__/\__,_|\___| |____||_||_|\__,_||_| |_||_|_|_|  |___/ |___/ 
+                                                                           
+        ''')
+        # os.system('cls')
+
 def Youtube_Watcher(Link):
-    chrome_options = selenium.webdriver.ChromeOptions()
-    user_agent = get_random_user_agent()
-    chrome_options.add_argument('start-maximized')
-    chrome_options.add_argument('--user-agent='+user_agent)
-    chrome_options.add_argument('--allow-running-insecure-content')
-    chrome_options.add_argument("javascript.enabled")
-    chrome_options.add_extension('vpn.crx')
-    screen_resolution = get_random_window_size()
-    timezone = get_random_timezone()
-    language = get_random_language()
-    chrome_options.add_argument('--window-size=' + screen_resolution)
-    chrome_options.add_argument('--lang=' + language)
-    chrome_options.add_argument('--force-timezone=' + timezone)
-    chrome_options.add_argument("--disable-plugins")
-    chrome_options.add_argument("--disable-extensions-file-access-check")
-    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
-    Name = random_name()
-    profile_path = "Profiles/"+Name
-    chrome_options.add_argument("user-data-dir="+os.path.abspath(profile_path))
-    driver = selenium.webdriver.Chrome(chrome_options=chrome_options)  
-    driver.get('chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/popup/index.html#/announcement')
-    driver.implicitly_wait(time_to_wait=10)
-    time.sleep(6)
-    driver.switch_to.window(driver.window_handles[1])
-    driver.close()
-    driver.switch_to.window(driver.window_handles[0])
-    driver.find_element('xpath','/html/body/div/div/div[2]/div/div/div[2]/button[2]').click()
-    driver.implicitly_wait(time_to_wait=10)
-    time.sleep(0.5)
-    driver.find_element('xpath','/html/body/div/div/div[3]/div[4]/div/div').click()
-    while driver.find_element('class name','timer').text=='00 : 00 : 00':
-        time.sleep(0.2)
-    # driver.get('chrome-extension://extension_eppiocemhmnlbhjplcgkofciiegomcon/index.html')
-    driver.get(Link)
-    while True:
-        time.sleep(2000)
+    is_working = False
+    while is_working!=True:
+        try:
+            chrome_options = selenium.webdriver.ChromeOptions()
+            user_agent = get_random_user_agent()
+            chrome_options.add_argument('start-maximized')
+            chrome_options.add_argument('--user-agent='+user_agent)
+            chrome_options.add_argument('--allow-running-insecure-content')
+            chrome_options.add_argument("javascript.enabled")
+            chrome_options.add_extension('vpn.crx')
+            screen_resolution = get_random_window_size()
+            timezone = get_random_timezone()
+            language = get_random_language()
+            chrome_options.add_argument('--window-size=' + screen_resolution)
+            chrome_options.add_argument('--lang=' + language)
+            chrome_options.add_argument('--force-timezone=' + timezone)
+            chrome_options.add_argument("--disable-plugins")
+            chrome_options.add_argument("--disable-extensions-file-access-check")
+            chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+            Name = random_name()
+            profile_path = "Profiles/"+Name
+            chrome_options.add_argument("user-data-dir="+os.path.abspath(profile_path))
+            driver = selenium.webdriver.Chrome(chrome_options=chrome_options)  
+            driver.get('chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/popup/index.html#/announcement')
+            driver.implicitly_wait(time_to_wait=10)
+            time.sleep(6)
+            driver.switch_to.window(driver.window_handles[1])
+            driver.close()
+            driver.switch_to.window(driver.window_handles[0])
+            driver.find_element('xpath','/html/body/div/div/div[2]/div/div/div[2]/button[2]').click()
+            driver.implicitly_wait(time_to_wait=10)
+            time.sleep(0.5)
+            driver.find_element('xpath','/html/body/div/div/div[3]/div[4]/div/div').click()
+            while driver.find_element('class name','timer').text=='00 : 00 : 00':
+                time.sleep(0.2)
+            # driver.get('chrome-extension://extension_eppiocemhmnlbhjplcgkofciiegomcon/index.html')
+            driver.get(Link)
+            cp()
+            while True:
+                time.sleep(2000)
+        except:
+            driver.quit
 if __name__ =="__main__":
+    p = Thread(target=cp,args=())
+    p.start()
     file = open('Config.txt','r')
     Config = file.readlines()
     file.close()
@@ -110,7 +134,7 @@ if __name__ =="__main__":
     Threads = Temp[1]
     Temp = Config[1]
     Link = Temp.replace('Link:','')
-    print(Link)
+    # print(Link)
     N = int(Threads)
       # Number of browsers to spawn
     thread_list = list()
@@ -119,7 +143,8 @@ if __name__ =="__main__":
     for i in range(N):
         t = Thread(name='Thread {}'.format(i), target=Youtube_Watcher,args=(Link,))
         t.start()
-        print(t.name + ' started!')
+        time.sleep(1)
+        # print(t.name + ' started!')
         thread_list.append(t)
     # Wait for all threads to complete
     for thread in thread_list:
