@@ -13,6 +13,27 @@ import random
 import string
 import os
 
+def big_clock():
+    start_time = time.time() # Get the start time
+    while True:
+        # Calculate the time elapsed
+        elapsed_time = time.time() - start_time
+        days = int(elapsed_time // (24 * 3600))
+        hours = int((elapsed_time // 3600) % 24)
+        minutes = int((elapsed_time // 60) % 60)
+        seconds = int(elapsed_time % 60)
+        # Convert time values to strings and add leading zeros if needed
+        days_str = str(days).zfill(3)
+        hours_str = str(hours).zfill(2)
+        minutes_str = str(minutes).zfill(2)
+        seconds_str = str(seconds).zfill(2)
+        # Create the clock string
+        clock = f"{days_str}:{hours_str}:{minutes_str}:{seconds_str}"
+        # Print the clock string
+        print(clock, end="\r", flush=True)
+        # Wait for 1 second
+        time.sleep(1)
+
 # Random browser language
 def get_random_language():
     # List of common language codes
@@ -69,6 +90,14 @@ def cp():
     # while True:
         os.system('cls')
         print("\033[91m"+'''
+ __     __         _         _           __          __   _       _         _           _   
+ \ \   / /        | |       | |          \ \        / /  | |     | |       | |         | |  
+  \ \_/ /__  _   _| |_ _   _| |__   ___   \ \  /\  / /_ _| |_ ___| |__     | |__   ___ | |_ 
+   \   / _ \| | | | __| | | | '_ \ / _ \   \ \/  \/ / _` | __/ __| '_ \    | '_ \ / _ \| __|
+    | | (_) | |_| | |_| |_| | |_) |  __/    \  /\  / (_| | || (__| | | |   | |_) | (_) | |_ 
+    |_|\___/ \__,_|\__|\__,_|_.__/ \___|     \/  \/ \__,_|\__\___|_| |_|   |_.__/ \___/ \__|                                                                                            
+      ''')
+        print("\033[91m"+'''
                             (                                 (          
    (         )   (          )\ )     )        (               )\ )   (   
    )\     ( /(   )\ )   (  (()/(  ( /(     )  )\ (      )    (()/( ( )\  
@@ -120,6 +149,8 @@ def Youtube_Watcher(Link):
             # driver.get('chrome-extension://extension_eppiocemhmnlbhjplcgkofciiegomcon/index.html')
             driver.get(Link)
             cp()
+            clock = Thread(name='Clock',target=big_clock)
+            clock.start()
             while True:
                 time.sleep(2000)
         except:
