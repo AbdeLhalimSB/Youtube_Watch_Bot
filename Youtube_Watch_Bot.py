@@ -148,9 +148,16 @@ def Youtube_Watcher(Link):
                 time.sleep(0.2)
             # driver.get('chrome-extension://extension_eppiocemhmnlbhjplcgkofciiegomcon/index.html')
             driver.get(Link)
+            driver.implicitly_wait(time_to_wait=10)
+            time.sleep(10)
+            try:
+                driver.find_element('class name','yt-spec-touch-feedback-shape__fill').click()
+            except:
+                print()
             cp()
             clock = Thread(name='Clock',target=big_clock)
             clock.start()
+            
             while True:
                 time.sleep(2000)
         except:
