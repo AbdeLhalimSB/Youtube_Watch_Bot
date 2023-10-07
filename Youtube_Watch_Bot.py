@@ -1,4 +1,5 @@
 import selenium.webdriver
+from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -133,7 +134,7 @@ def Youtube_Watcher(Link):
             Name = random_name()
             profile_path = "Profiles/"+Name
             chrome_options.add_argument("user-data-dir="+os.path.abspath(profile_path))
-            driver = selenium.webdriver.Chrome(chrome_options=chrome_options)  
+            driver = webdriver.Chrome(options=chrome_options)
             driver.get('chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/popup/index.html#/announcement')
             driver.implicitly_wait(time_to_wait=10)
             time.sleep(6)
